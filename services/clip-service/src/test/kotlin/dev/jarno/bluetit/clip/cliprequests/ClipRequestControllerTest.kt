@@ -2,6 +2,7 @@ package dev.jarno.bluetit.clip.cliprequests
 
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.empty
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -16,6 +17,14 @@ import org.springframework.test.web.servlet.get
 class ClipRequestControllerTest {
     @Autowired
     private lateinit var mockMvc: MockMvc
+
+    @Autowired
+    private lateinit var repository: ClipRequestRepository
+
+    @BeforeEach
+    fun clearDb() {
+        repository.deleteAll()
+    }
 
     @Test
     fun `POST creates clip request and returns 202`() {

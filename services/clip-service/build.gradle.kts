@@ -4,6 +4,7 @@ plugins {
 	id("org.springframework.boot") version "4.0.3"
 	id("io.spring.dependency-management") version "1.1.7"
 	kotlin("plugin.jpa") version "2.2.21"
+	id("org.jetbrains.kotlin.plugin.noarg") version "2.2.21"
 }
 
 group = "dev.jarno.bluetit"
@@ -37,6 +38,9 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation(kotlin("test"))
+	testImplementation(platform("org.testcontainers:testcontainers-bom:1.19.8"))
+	testImplementation("org.testcontainers:junit-jupiter")
+	testImplementation("org.testcontainers:postgresql")
 }
 
 tasks.test {
@@ -53,6 +57,10 @@ allOpen {
 	annotation("jakarta.persistence.Entity")
 	annotation("jakarta.persistence.MappedSuperclass")
 	annotation("jakarta.persistence.Embeddable")
+}
+
+noArg {
+	annotation("jakarta.persistence.Entity")
 }
 
 tasks.withType<Test> {
