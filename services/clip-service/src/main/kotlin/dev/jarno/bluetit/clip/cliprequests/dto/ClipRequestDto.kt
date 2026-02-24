@@ -1,9 +1,10 @@
-package dev.jarno.bluetit.clip.cliprequests
+package dev.jarno.bluetit.clip.cliprequests.dto
 
+import dev.jarno.bluetit.clip.cliprequests.ClipStatus
 import java.time.Instant
 
-data class ClipRequest(
-    val id: String,
+data class ClipRequestDto(
+    val clipRequestId: String,
     val episodeId: String,
     val startSeconds: Double,
     val endSeconds: Double,

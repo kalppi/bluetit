@@ -1,1 +1,3 @@
-rootProject.name = "clip-service"
+rootProject.name = "bluetit"
+
+include("services:clip-service")
