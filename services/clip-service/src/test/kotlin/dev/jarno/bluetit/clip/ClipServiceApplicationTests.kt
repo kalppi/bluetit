@@ -1,4 +1,4 @@
-package dev.jarno.bluetit.clip_service
+package dev.jarno.bluetit.clip
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

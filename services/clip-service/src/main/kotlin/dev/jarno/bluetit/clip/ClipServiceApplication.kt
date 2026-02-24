@@ -1,4 +1,4 @@
-package dev.jarno.bluetit.clip_service
+package dev.jarno.bluetit.clip
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
