@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: clip-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/clipdb
+    username: clip
+    password: clip
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
