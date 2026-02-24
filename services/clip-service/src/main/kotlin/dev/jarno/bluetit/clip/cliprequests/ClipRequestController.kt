@@ -39,7 +39,7 @@ class ClipRequestController(
         )
     }
 
-    @GetMapping
+    @GetMapping("/all")
     fun getAll(): List<ClipRequestDto> {
         return service.getAll().map {
             ClipRequestDto(

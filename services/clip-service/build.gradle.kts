@@ -35,6 +35,12 @@ dependencies {
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation(kotlin("test"))
+}
+
+tasks.test {
+	jvmArgs("-XX:+EnableDynamicAgentLoading")
 }
 
 kotlin {
