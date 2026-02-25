@@ -43,6 +43,9 @@ dependencies {
 	testImplementation("org.testcontainers:postgresql")
 	testImplementation(testFixtures(project(":libs:testCommon")))
 	implementation("org.springframework.boot:spring-boot-starter-amqp")
+	testImplementation("org.mockito.kotlin:mockito-kotlin:6.2.3")
+	testImplementation("org.awaitility:awaitility:4.2.0")
+	testImplementation("com.h2database:h2")
 }
 
 tasks.test {
