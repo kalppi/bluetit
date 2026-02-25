@@ -9,7 +9,7 @@ plugins {
 
 group = "dev.jarno.bluetit"
 version = "0.0.1-SNAPSHOT"
-description = "Demo project for Spring Boot"
+description = "Clip service"
 
 java {
 	toolchain {
