@@ -14,3 +14,5 @@ spring:
     port: 5672
     username: clip
     password: clip
+server:
+  port: 8081
