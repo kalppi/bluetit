@@ -3,8 +3,8 @@ package dev.jarno.bluetit.clip.cliprequests
 import dev.jarno.bluetit.common.AbstractPostgresIntegrationTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
@@ -28,14 +28,14 @@ class ClipRequestServiceTest : AbstractPostgresIntegrationTest() {
 
     @Test
     fun `create throws for endSeconds less or equal to startSeconds`() {
-        assertThrows(BadRequestException::class.java) {
+        assertThrows<BadRequestException> {
             service.create("ep-1", 10.0, 10.0)
         }
     }
 
     @Test
     fun `get throws NotFound for missing id`() {
-        assertThrows(NotFoundException::class.java) {
+        assertThrows<NotFoundException> {
             service.get("missing")
         }
     }
