@@ -41,6 +41,7 @@ dependencies {
 	testImplementation(platform("org.testcontainers:testcontainers-bom:1.19.8"))
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:postgresql")
+	testImplementation("org.testcontainers:rabbitmq")
 	testImplementation(testFixtures(project(":libs:testCommon")))
 	implementation("org.springframework.boot:spring-boot-starter-amqp")
 	testImplementation("org.mockito.kotlin:mockito-kotlin:6.2.3")
