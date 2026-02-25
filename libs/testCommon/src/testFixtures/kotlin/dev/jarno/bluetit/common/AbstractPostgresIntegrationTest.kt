@@ -22,7 +22,7 @@ abstract class AbstractPostgresIntegrationTest {
             registry.add("spring.datasource.username") { postgres.username }
             registry.add("spring.datasource.password") { postgres.password }
             registry.add("spring.datasource.driver-class-name") { postgres.driverClassName }
-            registry.add("spring.jpa.hibernate.ddl-auto") { "create-drop" }
+            registry.add("spring.jpa.hibernate.ddl-auto") { "create" }
         }
     }
 }
