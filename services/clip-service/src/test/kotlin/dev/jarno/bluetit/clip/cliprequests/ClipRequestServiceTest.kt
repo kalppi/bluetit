@@ -54,6 +54,6 @@ class ClipRequestServiceTest : AbstractPostgresIntegrationTest() {
         val events = outboxRepo.findAll()
         assertEquals(1, events.size)
         assertEquals("ClipRequested", events.first().eventType)
-        assertTrue(events[0].payloadJson.contains(created.id))
+        assertTrue(events.first().payloadJson.contains(created.id))
     }
 }
