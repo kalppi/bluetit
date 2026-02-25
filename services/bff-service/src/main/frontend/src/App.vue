@@ -13,36 +13,7 @@
 </template>
 
 <script setup lang="ts">
+import './styles/app.css'
 </script>
 
-<style scoped>
-header {
-  background-color: #f5f5f5;
-  padding: 1rem;
-  border-bottom: 1px solid #ddd;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-nav {
-  margin-top: 1rem;
-}
-
-nav a {
-  margin-right: 1rem;
-  color: #333;
-  text-decoration: none;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-main {
-  padding: 2rem;
-}
-</style>
 

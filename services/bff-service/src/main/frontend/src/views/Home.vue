@@ -27,6 +27,7 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { clipService, type Clip } from '../api/clipService'
+import '../styles/home.css'
 
 const health = ref<{ status: string } | null>(null)
 const clips = ref<Clip[]>([])
@@ -55,69 +56,5 @@ onMounted(async () => {
 })
 </script>
 
-<style scoped>
-.home {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.health-status {
-  margin-top: 2rem;
-  padding: 1rem;
-  background-color: #e8f5e9;
-  border-radius: 4px;
-  display: inline-block;
-}
-
-.clips-section {
-  margin-top: 3rem;
-  padding: 2rem;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-}
-
-.clips-section h3 {
-  margin-bottom: 1.5rem;
-  color: #333;
-}
-
-.loading {
-  color: #666;
-  font-style: italic;
-}
-
-.error {
-  color: #d32f2f;
-  padding: 1rem;
-  background-color: #ffebee;
-  border-radius: 4px;
-}
-
-.no-clips {
-  color: #666;
-  font-style: italic;
-}
-
-.clips-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.clip-item {
-  padding: 1rem;
-  margin-bottom: 0.5rem;
-  background-color: white;
-  border-radius: 4px;
-  text-align: left;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  transition: box-shadow 0.2s;
-}
-
-.clip-item:hover {
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}
-</style>
 
 
