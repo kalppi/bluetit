@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: bff-service
+  webmvc:
+    static-path-pattern: /static/**
+    resources:
+      static-locations:
+        - classpath:/static/
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
