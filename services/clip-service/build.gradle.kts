@@ -4,7 +4,7 @@ plugins {
 	id("org.springframework.boot") version "4.0.3"
 	id("io.spring.dependency-management") version "1.1.7"
 	kotlin("plugin.jpa") version "2.2.21"
-	id("org.jetbrains.kotlin.plugin.noarg") version "2.2.21"
+	kotlin("plugin.noarg") version "2.3.10"
 }
 
 group = "dev.jarno.bluetit"
