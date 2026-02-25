@@ -1,8 +1,10 @@
 package dev.jarno.bluetit.clip.cliprequests
 
+import dev.jarno.bluetit.clip.outbox.OutboxEventJpaRepository
 import dev.jarno.bluetit.common.AbstractPostgresIntegrationTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,6 +15,9 @@ class ClipRequestServiceTest : AbstractPostgresIntegrationTest() {
 
     @Autowired
     lateinit var service: ClipRequestService
+
+    @Autowired
+    lateinit var outboxRepo: OutboxEventJpaRepository
 
     @Test
     fun `create stores clip request with REQUESTED status`() {
@@ -38,5 +43,17 @@ class ClipRequestServiceTest : AbstractPostgresIntegrationTest() {
         assertThrows<NotFoundException> {
             service.get("missing")
         }
+    }
+
+    @Test
+    fun `create writes outbox event`() {
+        outboxRepo.deleteAll()
+
+        val created = service.create("ep-1", 1.0, 2.5)
+
+        val events = outboxRepo.findAll()
+        assertEquals(1, events.size)
+        assertEquals("ClipRequested", events.first().eventType)
+        assertTrue(events[0].payloadJson.contains(created.id))
     }
 }
