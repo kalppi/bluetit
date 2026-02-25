@@ -21,3 +21,9 @@ management:
     health:
       show-details: when-authorized
 
+# Backend service URLs
+services:
+  clip-service:
+    url: http://localhost:8081
+
+
