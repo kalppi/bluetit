@@ -1,0 +1,12 @@
+package dev.jarno.bluetit.clip.cliprequests
+
+import dev.jarno.bluetit.clip.outbox.OutboxPayload
+
+data class ClipRequestedPayload(
+    val clipRequestId: String,
+    val episodeId: String,
+    val startSeconds: Double,
+    val endSeconds: Double,
+    val pipelineId: String,
+    val pipelineVersion: String,
+) : OutboxPayload()
