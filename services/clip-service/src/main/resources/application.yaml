@@ -14,5 +14,14 @@ spring:
     port: 5672
     username: clip
     password: clip
+
+messaging:
+  exchange:
+    events: events.exchange
+  queue:
+    clip-requested: clip-requested-queue
+  routing-key:
+    clip-requested: ClipRequested
+
 server:
   port: 8081

@@ -11,8 +11,12 @@ server:
   port: 8082
 
 messaging:
+  exchange:
+    events: events.exchange
   queue:
     clip-requested: clip-requested-queue
+  routing-key:
+    clip-requested: ClipRequested
 
 rendering:
   service:

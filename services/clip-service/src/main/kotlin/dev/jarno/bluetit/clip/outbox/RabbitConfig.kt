@@ -6,11 +6,20 @@ import org.springframework.amqp.core.Queue
 import org.springframework.amqp.core.TopicExchange
 import org.springframework.amqp.rabbit.connection.ConnectionFactory
 import org.springframework.amqp.rabbit.core.RabbitAdmin
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
 class RabbitConfig {
+    @Value("\${messaging.queue.clip-requested}")
+    private lateinit var eventsQueueName: String
+
+    @Value("\${messaging.exchange.events}")
+    private lateinit var eventsExchangeName: String
+
+    @Value("\${messaging.routing-key.clip-requested}")
+    private lateinit var routingKey: String
 
     @Bean
     fun rabbitAdmin(connectionFactory: ConnectionFactory): RabbitAdmin {
@@ -19,12 +28,12 @@ class RabbitConfig {
 
     @Bean
     fun eventsExchange(): TopicExchange {
-        return TopicExchange("events.exchange", true, false)
+        return TopicExchange(eventsExchangeName, true, false)
     }
 
     @Bean
     fun eventsQueue(): Queue {
-        return Queue("events.queue", true)
+        return Queue(eventsQueueName, true)
     }
 
     @Bean
@@ -35,6 +44,6 @@ class RabbitConfig {
         return BindingBuilder
             .bind(queue)
             .to(exchange)
-            .with("#")
+            .with(routingKey)
     }
 }
