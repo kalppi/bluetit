@@ -1,12 +1,10 @@
 package dev.jarno.bluetit.clip.outbox
 
-import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import java.time.Instant
 
 @Component
-@EnableScheduling
 class OutboxPublisher(
     private val outboxJpa: OutboxEventJpaRepository,
     private val eventBus: EventBus,
