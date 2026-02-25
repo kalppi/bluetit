@@ -93,8 +93,12 @@ const onSubmit = async () => {
 </script>
 <style scoped>
 .create-clip {
-  max-width: 420px;
+  max-width: 480px;
   margin: 2rem auto;
+  padding: 1.5rem;
+  background: #fdfdfd;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 .form {
   display: flex;
