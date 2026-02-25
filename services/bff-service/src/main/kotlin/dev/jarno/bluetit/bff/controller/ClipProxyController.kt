@@ -19,7 +19,7 @@ class ClipProxyController(
     @GetMapping
     fun getAllClips(): ResponseEntity<Any> {
         return restTemplate.exchange(
-            "$clipServiceUrl/api/clips",
+            "$clipServiceUrl/api/v1/clip-requests/all",
             HttpMethod.GET,
             null,
             Any::class.java
