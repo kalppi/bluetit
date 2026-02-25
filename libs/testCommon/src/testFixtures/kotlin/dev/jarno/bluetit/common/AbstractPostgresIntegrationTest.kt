@@ -1,18 +1,19 @@
 package dev.jarno.bluetit.common
 
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.PostgreSQLContainer
-import org.testcontainers.junit.jupiter.Container
-import org.testcontainers.junit.jupiter.Testcontainers
 
-@Testcontainers
-@SpringBootTest
 abstract class AbstractPostgresIntegrationTest {
     companion object {
-        @Container
-        private val postgres = PostgreSQLContainer("postgres:16")
+        @JvmField
+        val postgres = PostgreSQLContainer<Nothing>("postgres:16").apply { start() }
+
+        init {
+            Runtime.getRuntime().addShutdownHook(Thread {
+                postgres.stop()
+            })
+        }
 
         @JvmStatic
         @DynamicPropertySource
