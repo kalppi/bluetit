@@ -29,7 +29,7 @@ class ClipProxyController(
     @GetMapping("/{id}")
     fun getClipById(@PathVariable id: String): ResponseEntity<Any> {
         return restTemplate.exchange(
-            "$clipServiceUrl/api/clips/$id",
+            "$clipServiceUrl/api/v1/clip-requests/$id",
             HttpMethod.GET,
             null,
             Any::class.java
@@ -40,30 +40,9 @@ class ClipProxyController(
     fun createClip(@RequestBody clip: Any): ResponseEntity<Any> {
         val request = HttpEntity(clip)
         return restTemplate.exchange(
-            "$clipServiceUrl/api/clips",
+            "$clipServiceUrl/api/v1/clip-requests",
             HttpMethod.POST,
             request,
-            Any::class.java
-        )
-    }
-
-    @PutMapping("/{id}")
-    fun updateClip(@PathVariable id: String, @RequestBody clip: Any): ResponseEntity<Any> {
-        val request = HttpEntity(clip)
-        return restTemplate.exchange(
-            "$clipServiceUrl/api/clips/$id",
-            HttpMethod.PUT,
-            request,
-            Any::class.java
-        )
-    }
-
-    @DeleteMapping("/{id}")
-    fun deleteClip(@PathVariable id: String): ResponseEntity<Any> {
-        return restTemplate.exchange(
-            "$clipServiceUrl/api/clips/$id",
-            HttpMethod.DELETE,
-            null,
             Any::class.java
         )
     }
