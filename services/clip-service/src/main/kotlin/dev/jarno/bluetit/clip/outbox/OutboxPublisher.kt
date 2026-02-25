@@ -1,10 +1,12 @@
 package dev.jarno.bluetit.clip.outbox
 
+import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import java.time.Instant
 
 @Component
+@EnableScheduling
 class OutboxPublisher(
     private val outboxJpa: OutboxEventJpaRepository,
     private val eventBus: EventBus,
@@ -17,9 +19,7 @@ class OutboxPublisher(
             return
         }
 
-        for (event in batch) {
-            publishOne(event)
-        }
+        batch.forEach { publishOne(it) }
     }
 
     fun publishOne(event: OutboxEventEntity) {
@@ -30,14 +30,24 @@ class OutboxPublisher(
                 aggregateId = event.aggregateId,
             )
 
-            event.publishedAt = Instant.now()
-            event.attemptCount = event.attemptCount + 1
-            event.lastError = null
-            outboxJpa.save(event)
+            markAsPublished(event)
         } catch (e: Exception) {
-            event.attemptCount = event.attemptCount + 1
-            event.lastError = e.message
-            outboxJpa.save(event)
+            markAsFailed(event, e)
         }
+    }
+
+    private fun markAsPublished(event: OutboxEventEntity) {
+        event.publishedAt = Instant.now()
+        event.attemptCount = event.attemptCount + 1
+        event.lastError = null
+
+        outboxJpa.save(event)
+    }
+
+    private fun markAsFailed(event: OutboxEventEntity, e: Exception) {
+        event.attemptCount = event.attemptCount + 1
+        event.lastError = e.message
+
+        outboxJpa.save(event)
     }
 }
