@@ -104,6 +104,11 @@ const onSubmit = async () => {
 .field {
   display: flex;
   flex-direction: column;
+  gap: 0.25rem;
+}
+.field label {
+  font-weight: 500;
+  text-align: left;
 }
 .error {
   color: #c00;

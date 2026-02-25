@@ -99,3 +99,26 @@
 .create-link:hover {
   background-color: #359268;
 }
+
+/* Make form inputs clearly visible */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+textarea {
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  padding: 0.4rem 0.6rem;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #42b983;
+  box-shadow: 0 0 0 2px rgba(66, 185, 131, 0.2);
+}
