@@ -42,6 +42,7 @@ dependencies {
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:postgresql")
 	testImplementation(testFixtures(project(":libs:testCommon")))
+	implementation("org.springframework.boot:spring-boot-starter-amqp")
 }
 
 tasks.test {
