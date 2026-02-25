@@ -8,7 +8,10 @@
     </div>
 
     <div class="clips-section">
-      <h3>Clips</h3>
+      <div class="clips-header">
+        <h3>Clips</h3>
+        <router-link to="/create-clip" class="create-link">Create New Clip</router-link>
+      </div>
       <div v-if="loading" class="loading">Loading clips...</div>
       <div v-else-if="error" class="error">{{ error }}</div>
       <div v-else-if="clips.length === 0" class="no-clips">
@@ -55,6 +58,3 @@ onMounted(async () => {
   }
 })
 </script>
-
-
-
