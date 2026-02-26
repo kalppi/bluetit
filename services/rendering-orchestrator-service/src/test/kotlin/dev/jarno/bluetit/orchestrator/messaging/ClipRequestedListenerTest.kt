@@ -30,9 +30,6 @@ class ClipRequestedListenerTest {
             }
         """.trimIndent()
 
-        whenever(router.routeRequest(any(), any(), any(), any(), any(), any()))
-            .thenReturn("http://service1:9000")
-
         // When
         listener.handleClipRequested(messageJson)
 

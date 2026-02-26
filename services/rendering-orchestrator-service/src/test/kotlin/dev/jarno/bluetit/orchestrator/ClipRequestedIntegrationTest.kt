@@ -1,38 +1,25 @@
 package dev.jarno.bluetit.orchestrator
 
 import dev.jarno.bluetit.orchestrator.messaging.ClipRequestedMessage
-import dev.jarno.bluetit.orchestrator.routing.RenderingServiceRouter
+import dev.jarno.bluetit.outbox.OutboxEventJpaRepository
 import org.awaitility.Awaitility.await
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.any
-import org.mockito.kotlin.eq
-import org.mockito.kotlin.reset
-import org.mockito.kotlin.timeout
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.whenever
 import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
-import org.springframework.test.context.TestPropertySource
-import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.testcontainers.containers.RabbitMQContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import tools.jackson.databind.ObjectMapper
 import java.util.concurrent.TimeUnit
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 @SpringBootTest
 @Testcontainers
-@TestPropertySource(
-    properties = [
-        "spring.datasource.url=",
-        "spring.datasource.driver-class-name=",
-        "spring.jpa.database-platform="
-    ]
-)
 class ClipRequestedIntegrationTest {
 
     companion object {
@@ -56,14 +43,13 @@ class ClipRequestedIntegrationTest {
     @Autowired
     private lateinit var objectMapper: ObjectMapper
 
-    @MockitoBean
-    private lateinit var router: RenderingServiceRouter
+    @Autowired
+    private lateinit var outboxRepository: OutboxEventJpaRepository
+
 
     @BeforeEach
     fun setUp() {
-        reset(router)
-        whenever(router.routeRequest(any(), any(), any(), any(), any(), any()))
-            .thenReturn("http://service1:9000")
+        outboxRepository.deleteAll()
     }
 
     @Test
@@ -89,17 +75,16 @@ class ClipRequestedIntegrationTest {
 
         // Then
         await()
-            .atMost(10, TimeUnit.SECONDS)
+            .atMost(5, TimeUnit.SECONDS)
             .untilAsserted {
-                verify(router, timeout(5000)).routeRequest(
-                    clipRequestId = eq("clip-123"),
-                    episodeId = eq("episode-456"),
-                    startSeconds = eq(10.5),
-                    endSeconds = eq(20.5),
-                    pipelineId = eq("gif"),
-                    pipelineVersion = eq("v1")
-                )
+                val events = outboxRepository.findAll()
+                assertTrue(events.isNotEmpty(), "Outbox should contain at least one event")
+                val event = events.first()
+                assertEquals("ClipRequest", event.aggregateType)
+                assertEquals("clip-123", event.aggregateId)
+                assertEquals("RenderingRequested", event.eventType)
             }
+
     }
 
     @Test
@@ -123,33 +108,24 @@ class ClipRequestedIntegrationTest {
 
         // Then
         await()
-            .atMost(10, TimeUnit.SECONDS)
+            .atMost(5, TimeUnit.SECONDS)
             .untilAsserted {
-                verify(router, timeout(5000)).routeRequest(
-                    clipRequestId = eq("clip-1"),
-                    episodeId = eq("episode-1"),
-                    startSeconds = eq(1.0),
-                    endSeconds = eq(5.0),
-                    pipelineId = eq("gif"),
-                    pipelineVersion = eq("v1")
-                )
-                verify(router, timeout(5000)).routeRequest(
-                    clipRequestId = eq("clip-2"),
-                    episodeId = eq("episode-2"),
-                    startSeconds = eq(2.0),
-                    endSeconds = eq(6.0),
-                    pipelineId = eq("gif"),
-                    pipelineVersion = eq("v1")
-                )
-                verify(router, timeout(5000)).routeRequest(
-                    clipRequestId = eq("clip-3"),
-                    episodeId = eq("episode-3"),
-                    startSeconds = eq(3.0),
-                    endSeconds = eq(7.0),
-                    pipelineId = eq("gif"),
-                    pipelineVersion = eq("v1")
-                )
+                val events = outboxRepository.findAll()
+                assertEquals(3, events.size, "Outbox should contain three events")
+
+                val sorted = events.sortedBy { it.aggregateId }
+
+                assertEquals("clip-1", sorted[0].aggregateId)
+                assertEquals("ClipRequest", sorted[0].aggregateType)
+                assertEquals("RenderingRequested", sorted[0].eventType)
+
+                assertEquals("clip-2", sorted[1].aggregateId)
+                assertEquals("ClipRequest", sorted[1].aggregateType)
+                assertEquals("RenderingRequested", sorted[1].eventType)
+
+                assertEquals("clip-3", sorted[2].aggregateId)
+                assertEquals("ClipRequest", sorted[2].aggregateType)
+                assertEquals("RenderingRequested", sorted[2].eventType)
             }
     }
 }
-

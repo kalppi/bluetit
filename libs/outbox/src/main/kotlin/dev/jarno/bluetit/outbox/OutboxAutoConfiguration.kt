@@ -8,4 +8,3 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 @ComponentScan(basePackages = ["dev.jarno.bluetit.outbox"])
 @EnableJpaRepositories(basePackages = ["dev.jarno.bluetit.outbox"])
 class OutboxAutoConfiguration
-

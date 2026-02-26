@@ -1,8 +1,10 @@
 package dev.jarno.bluetit.orchestrator.routing
 
+import dev.jarno.bluetit.orchestrator.messaging.RenderingRequestedPayload
+import dev.jarno.bluetit.outbox.OutboxWriter
+import jakarta.transaction.Transactional
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
-import org.springframework.web.client.RestTemplate
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -11,12 +13,13 @@ import java.util.concurrent.atomic.AtomicInteger
 @Component
 class RoundRobinRenderingServiceRouter(
     private val renderingServicePool: RenderingServicePool,
-    private val restTemplate: RestTemplate,
+    private val outboxWriter: OutboxWriter,
 ) : RenderingServiceRouter {
 
     private val logger = LoggerFactory.getLogger(javaClass)
     private val counter = AtomicInteger(0)
 
+    @Transactional
     override fun routeRequest(
         clipRequestId: String,
         episodeId: String,
@@ -38,20 +41,20 @@ class RoundRobinRenderingServiceRouter(
         logger.info("Routing clip request {} to rendering service at {}", clipRequestId, selectedService)
 
         try {
-            // Send the rendering request
-            val request = RenderingRequest(
-                clipRequestId = clipRequestId,
-                episodeId = episodeId,
-                startSeconds = startSeconds,
-                endSeconds = endSeconds,
-                pipelineId = pipelineId,
-                pipelineVersion = pipelineVersion,
-            )
-
-            restTemplate.postForEntity(
-                "$selectedService/api/v1/render",
-                request,
-                String::class.java
+            // Send the rendering request via outbox pattern
+            outboxWriter.add(
+                aggregateType = "ClipRequest",
+                aggregateId = clipRequestId,
+                eventType = "RenderingRequested",
+                payload = RenderingRequestedPayload(
+                    clipRequestId = clipRequestId,
+                    episodeId = episodeId,
+                    startSeconds = startSeconds,
+                    endSeconds = endSeconds,
+                    pipelineId = pipelineId,
+                    pipelineVersion = pipelineVersion,
+                    renderingServiceUrl = selectedService,
+                ),
             )
 
             logger.info("Successfully routed clip request {} to {}", clipRequestId, selectedService)
@@ -62,6 +65,4 @@ class RoundRobinRenderingServiceRouter(
         }
     }
 }
-
-
 
