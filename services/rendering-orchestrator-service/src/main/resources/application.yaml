@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: rendering-orchestrator
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: clip
+    password: clip
+
+server:
+  port: 8082
+
+messaging:
+  queue:
+    clip-requested: clip-requested-queue
+
+rendering:
+  service:
+    pool:
+      services:
+        - http://localhost:9001
+        - http://localhost:9002
+        - http://localhost:9003
+
