@@ -3,12 +3,20 @@ package dev.jarno.bluetit.outbox
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import jakarta.persistence.Index
 import jakarta.persistence.Table
 import java.time.Instant
 import java.util.UUID
 
 @Entity
-@Table(name = "outbox_events")
+@Table(
+    name = "outbox_events", indexes = [
+        Index(
+            name = "idx_unpublished_occurred",
+            columnList = "published_at, occurred_at"
+        )
+    ]
+)
 class OutboxEventEntity(
     @Id
     @Column(nullable = false, updatable = false)
