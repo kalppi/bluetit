@@ -14,3 +14,13 @@ subprojects {
     }
 }
 
+tasks.register("bootRunAll") {
+    group = "application"
+    description = "Run all services concurrently"
+
+    dependsOn(
+        ":services:bff-service:bootRun",
+        ":services:clip-service:bootRun",
+        ":services:rendering-orchestrator-service:bootRun"
+    )
+}
