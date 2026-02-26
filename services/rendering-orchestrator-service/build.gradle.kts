@@ -41,6 +41,7 @@ dependencies {
 	testImplementation("org.testcontainers:postgresql")
 	testImplementation("org.mockito.kotlin:mockito-kotlin:6.2.3")
 	testImplementation("org.awaitility:awaitility:4.2.0")
+	testImplementation(testFixtures(project(":libs:testCommon")))
 	implementation(project(":libs:outbox"))
 	implementation(kotlin("stdlib-jdk8"))
 }

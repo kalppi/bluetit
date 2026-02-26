@@ -1,6 +1,7 @@
 package dev.jarno.bluetit.clip
 
 import dev.jarno.bluetit.clip.cliprequests.messaging.ClipRequestedPayload
+import dev.jarno.bluetit.common.AbstractPostgresIntegrationTest
 import dev.jarno.bluetit.outbox.EventBus
 import dev.jarno.bluetit.outbox.OutboxEventJpaRepository
 import dev.jarno.bluetit.outbox.OutboxPublisher
@@ -29,7 +30,7 @@ import tools.jackson.databind.ObjectMapper
         "app.scheduling.enabled=false"
     ]
 )
-class OutboxIntegrationTest {
+class OutboxIntegrationTest : AbstractPostgresIntegrationTest() {
 
     @Autowired
     private lateinit var mockMvc: MockMvc

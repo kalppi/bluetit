@@ -1,5 +1,6 @@
 package dev.jarno.bluetit.clip.cliprequests
 
+import dev.jarno.bluetit.common.AbstractFullIntegrationTest
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.empty
 import org.junit.jupiter.api.BeforeEach
@@ -16,7 +17,7 @@ import org.springframework.test.web.servlet.get
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class ClipRequestControllerTest {
+class ClipRequestControllerTest : AbstractFullIntegrationTest() {
     @Autowired
     private lateinit var mockMvc: MockMvc
 

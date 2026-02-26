@@ -1,5 +1,6 @@
 package dev.jarno.bluetit.orchestrator
 
+import dev.jarno.bluetit.common.AbstractFullIntegrationTest
 import dev.jarno.bluetit.orchestrator.messaging.ClipRequestedMessage
 import dev.jarno.bluetit.outbox.OutboxEventJpaRepository
 import org.awaitility.Awaitility.await
@@ -8,33 +9,12 @@ import org.junit.jupiter.api.Test
 import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.DynamicPropertyRegistry
-import org.springframework.test.context.DynamicPropertySource
-import org.testcontainers.containers.RabbitMQContainer
-import org.testcontainers.junit.jupiter.Container
-import org.testcontainers.junit.jupiter.Testcontainers
 import java.util.concurrent.TimeUnit
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 @SpringBootTest
-@Testcontainers
-class ClipRequestedIntegrationTest {
-
-    companion object {
-        @Container
-        val rabbitMqContainer = RabbitMQContainer("rabbitmq:3-management")
-            .withExposedPorts(5672, 15672)
-
-        @JvmStatic
-        @DynamicPropertySource
-        fun registerProperties(registry: DynamicPropertyRegistry) {
-            registry.add("spring.rabbitmq.host") { rabbitMqContainer.host }
-            registry.add("spring.rabbitmq.port") { rabbitMqContainer.getMappedPort(5672) }
-            registry.add("spring.rabbitmq.username") { "guest" }
-            registry.add("spring.rabbitmq.password") { "guest" }
-        }
-    }
+class ClipRequestedIntegrationTest : AbstractFullIntegrationTest() {
 
     @Autowired
     private lateinit var rabbitTemplate: RabbitTemplate

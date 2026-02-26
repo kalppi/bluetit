@@ -42,6 +42,7 @@ dependencies {
 	testFixturesImplementation(platform("org.testcontainers:testcontainers-bom:1.19.8"))
 	testFixturesImplementation("org.testcontainers:junit-jupiter")
 	testFixturesImplementation("org.testcontainers:postgresql")
+	testFixturesImplementation("org.testcontainers:rabbitmq")
 }
 
 tasks.test {

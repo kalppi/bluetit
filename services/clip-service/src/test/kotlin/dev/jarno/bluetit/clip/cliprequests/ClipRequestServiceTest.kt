@@ -3,7 +3,7 @@ package dev.jarno.bluetit.clip.cliprequests
 import dev.jarno.bluetit.clip.cliprequests.exception.BadRequestException
 import dev.jarno.bluetit.clip.cliprequests.exception.NotFoundException
 import dev.jarno.bluetit.outbox.OutboxEventJpaRepository
-import dev.jarno.bluetit.common.AbstractPostgresIntegrationTest
+import dev.jarno.bluetit.common.AbstractFullIntegrationTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class ClipRequestServiceTest : AbstractPostgresIntegrationTest() {
+class ClipRequestServiceTest : AbstractFullIntegrationTest() {
 
     @Autowired
     lateinit var service: ClipRequestService
