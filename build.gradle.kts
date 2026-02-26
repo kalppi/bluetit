@@ -7,3 +7,10 @@ allprojects {
         mavenCentral()
     }
 }
+
+subprojects {
+    tasks.withType<Test> {
+        outputs.upToDateWhen { false }
+    }
+}
+
