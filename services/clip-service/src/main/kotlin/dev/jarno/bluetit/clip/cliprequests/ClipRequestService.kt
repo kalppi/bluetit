@@ -1,6 +1,6 @@
 package dev.jarno.bluetit.clip.cliprequests
 
-import dev.jarno.bluetit.clip.outbox.OutboxWriter
+import dev.jarno.bluetit.outbox.OutboxWriter
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import java.time.Instant

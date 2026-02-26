@@ -1,4 +1,4 @@
-package dev.jarno.bluetit.clip.outbox
+package dev.jarno.bluetit.outbox
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -25,3 +25,4 @@ interface OutboxEventJpaRepository : JpaRepository<OutboxEventEntity, UUID> {
     )
     fun findUnpublishedLimited(@Param("limit") limit: Int): List<OutboxEventEntity>
 }
+

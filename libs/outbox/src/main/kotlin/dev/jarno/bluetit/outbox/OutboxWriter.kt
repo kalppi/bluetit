@@ -1,4 +1,4 @@
-package dev.jarno.bluetit.clip.outbox
+package dev.jarno.bluetit.outbox
 
 import org.springframework.stereotype.Component
 import tools.jackson.databind.ObjectMapper
@@ -34,3 +34,4 @@ class OutboxWriter(
         jpa.save(entity)
     }
 }
+

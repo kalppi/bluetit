@@ -1,4 +1,4 @@
-package dev.jarno.bluetit.clip.outbox
+package dev.jarno.bluetit.outbox
 
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
@@ -49,3 +49,4 @@ class OutboxPublisher(
         outboxJpa.save(event)
     }
 }
+

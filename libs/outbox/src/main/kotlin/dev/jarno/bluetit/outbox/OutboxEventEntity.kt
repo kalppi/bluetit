@@ -1,4 +1,4 @@
-package dev.jarno.bluetit.clip.outbox
+package dev.jarno.bluetit.outbox
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -38,3 +38,4 @@ class OutboxEventEntity(
     @Column(name = "last_error", nullable = true, columnDefinition = "text")
     var lastError: String?,
 )
+

@@ -1,14 +1,15 @@
 package dev.jarno.bluetit.clip
 
 import dev.jarno.bluetit.clip.cliprequests.ClipRequestedPayload
-import dev.jarno.bluetit.clip.outbox.EventBus
-import dev.jarno.bluetit.clip.outbox.OutboxEventJpaRepository
-import dev.jarno.bluetit.clip.outbox.OutboxPublisher
+import dev.jarno.bluetit.outbox.EventBus
+import dev.jarno.bluetit.outbox.OutboxEventJpaRepository
+import dev.jarno.bluetit.outbox.OutboxPublisher
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.doAnswer
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestPropertySource
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.post
@@ -22,10 +23,10 @@ import tools.jackson.databind.ObjectMapper
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 @TestPropertySource(
     properties = [
-        "app.scheduling.enabled=false",
-        "spring.jpa.hibernate.ddl-auto=create-drop"
+        "app.scheduling.enabled=false"
     ]
 )
 class OutboxIntegrationTest {

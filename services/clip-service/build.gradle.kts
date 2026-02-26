@@ -26,6 +26,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
+	implementation("org.springframework.boot:spring-boot-autoconfigure")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("tools.jackson.module:jackson-module-kotlin")
 	runtimeOnly("org.postgresql:postgresql")
@@ -47,6 +48,7 @@ dependencies {
 	testImplementation("org.mockito.kotlin:mockito-kotlin:6.2.3")
 	testImplementation("org.awaitility:awaitility:4.2.0")
 	testImplementation("com.h2database:h2")
+	implementation(project(":libs:outbox"))
 }
 
 tasks.test {

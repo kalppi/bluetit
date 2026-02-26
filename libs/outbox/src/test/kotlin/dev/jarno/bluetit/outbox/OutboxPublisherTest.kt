@@ -1,4 +1,4 @@
-package dev.jarno.bluetit.clip.outbox
+package dev.jarno.bluetit.outbox
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

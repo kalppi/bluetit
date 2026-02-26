@@ -1,4 +1,4 @@
-package dev.jarno.bluetit.clip.outbox
+package dev.jarno.bluetit.outbox
 
 import org.springframework.amqp.core.Binding
 import org.springframework.amqp.core.BindingBuilder
@@ -33,17 +33,14 @@ class RabbitConfig {
 
     @Bean
     fun eventsQueue(): Queue {
-        return Queue(eventsQueueName, true)
+        return Queue(eventsQueueName, true, false, false)
     }
 
     @Bean
-    fun binding(
-        queue: Queue,
-        exchange: TopicExchange
-    ): Binding {
-        return BindingBuilder
-            .bind(queue)
-            .to(exchange)
+    fun binding(eventsQueue: Queue, eventsExchange: TopicExchange): Binding {
+        return BindingBuilder.bind(eventsQueue)
+            .to(eventsExchange)
             .with(routingKey)
     }
 }
+

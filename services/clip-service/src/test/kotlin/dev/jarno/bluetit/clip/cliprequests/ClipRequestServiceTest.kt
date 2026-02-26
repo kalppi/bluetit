@@ -1,6 +1,6 @@
 package dev.jarno.bluetit.clip.cliprequests
 
-import dev.jarno.bluetit.clip.outbox.OutboxEventJpaRepository
+import dev.jarno.bluetit.outbox.OutboxEventJpaRepository
 import dev.jarno.bluetit.common.AbstractPostgresIntegrationTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
