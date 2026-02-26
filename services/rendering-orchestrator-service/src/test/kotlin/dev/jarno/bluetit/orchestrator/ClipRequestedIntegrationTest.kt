@@ -13,7 +13,6 @@ import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.RabbitMQContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
-import tools.jackson.databind.ObjectMapper
 import java.util.concurrent.TimeUnit
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -41,11 +40,7 @@ class ClipRequestedIntegrationTest {
     private lateinit var rabbitTemplate: RabbitTemplate
 
     @Autowired
-    private lateinit var objectMapper: ObjectMapper
-
-    @Autowired
     private lateinit var outboxRepository: OutboxEventJpaRepository
-
 
     @BeforeEach
     fun setUp() {
@@ -64,13 +59,11 @@ class ClipRequestedIntegrationTest {
             pipelineVersion = "v1"
         )
 
-        val messageJson = objectMapper.writeValueAsString(message)
-
-        // When
+        // When - send the object directly, let RabbitTemplate serialize it
         rabbitTemplate.convertAndSend(
             "events.exchange",
             "ClipRequested",
-            messageJson
+            message
         )
 
         // Then
@@ -84,7 +77,6 @@ class ClipRequestedIntegrationTest {
                 assertEquals("clip-123", event.aggregateId)
                 assertEquals("RenderingRequested", event.eventType)
             }
-
     }
 
     @Test
@@ -96,13 +88,12 @@ class ClipRequestedIntegrationTest {
             ClipRequestedMessage("clip-3", "episode-3", 3.0, 7.0, "gif", "v1")
         )
 
-        // When
+        // When - send objects directly, let RabbitTemplate serialize them
         messages.forEach { message ->
-            val messageJson = objectMapper.writeValueAsString(message)
             rabbitTemplate.convertAndSend(
                 "events.exchange",
                 "ClipRequested",
-                messageJson
+                message
             )
         }
 
