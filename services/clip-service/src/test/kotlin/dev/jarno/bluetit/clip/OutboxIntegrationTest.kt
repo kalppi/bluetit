@@ -1,6 +1,6 @@
 package dev.jarno.bluetit.clip
 
-import dev.jarno.bluetit.clip.cliprequests.ClipRequestedPayload
+import dev.jarno.bluetit.clip.cliprequests.messaging.ClipRequestedPayload
 import dev.jarno.bluetit.outbox.EventBus
 import dev.jarno.bluetit.outbox.OutboxEventJpaRepository
 import dev.jarno.bluetit.outbox.OutboxPublisher

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class RabbitMqConfig {
+class RabbitMqListenerConfiguration {
 
     @Bean
     fun messageConverter(): JacksonJsonMessageConverter {
@@ -21,4 +21,5 @@ class RabbitMqConfig {
         return template
     }
 }
+
 

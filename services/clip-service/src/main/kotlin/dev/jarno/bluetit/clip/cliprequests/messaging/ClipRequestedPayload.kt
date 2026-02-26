@@ -1,7 +1,5 @@
-package dev.jarno.bluetit.clip.cliprequests
-
+package dev.jarno.bluetit.clip.cliprequests.messaging
 import dev.jarno.bluetit.outbox.OutboxPayload
-
 data class ClipRequestedPayload(
     val clipRequestId: String,
     val episodeId: String,

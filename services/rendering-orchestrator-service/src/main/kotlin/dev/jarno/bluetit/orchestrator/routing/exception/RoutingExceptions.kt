@@ -1,4 +1,4 @@
-package dev.jarno.bluetit.orchestrator.routing
+package dev.jarno.bluetit.orchestrator.routing.exception
 
 class NoAvailableRenderingServiceException(message: String) : RuntimeException(message)
 

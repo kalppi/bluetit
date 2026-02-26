@@ -48,6 +48,14 @@ tasks.test {
 	jvmArgs("-XX:+EnableDynamicAgentLoading")
 }
 
+tasks.named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+	enabled = false
+}
+
+tasks.named<Jar>("jar") {
+	enabled = true
+}
+
 allOpen {
 	annotation("jakarta.persistence.Entity")
 	annotation("jakarta.persistence.MappedSuperclass")

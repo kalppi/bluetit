@@ -11,5 +11,5 @@ import org.springframework.scheduling.annotation.EnableScheduling
     havingValue = "true",
     matchIfMissing = true
 )
-class SchedulingConfig
+class SchedulingConfiguration
 

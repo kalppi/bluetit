@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class RabbitConfig {
+class RabbitMqInfrastructureConfiguration {
     @Value("\${messaging.queue.clip-requested}")
     private lateinit var eventsQueueName: String
 
@@ -43,4 +43,6 @@ class RabbitConfig {
             .with(routingKey)
     }
 }
+
+
 

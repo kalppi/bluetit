@@ -1,6 +1,8 @@
 package dev.jarno.bluetit.orchestrator.routing
 
 import dev.jarno.bluetit.orchestrator.messaging.RenderingRequestedPayload
+import dev.jarno.bluetit.orchestrator.routing.exception.NoAvailableRenderingServiceException
+import dev.jarno.bluetit.orchestrator.routing.exception.RenderingServiceRoutingException
 import dev.jarno.bluetit.outbox.OutboxWriter
 import jakarta.transaction.Transactional
 import org.slf4j.LoggerFactory

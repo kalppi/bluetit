@@ -1,4 +1,4 @@
-package dev.jarno.bluetit.clip.cliprequests
+package dev.jarno.bluetit.clip.cliprequests.exception
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ResponseStatus

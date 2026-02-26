@@ -6,8 +6,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
-class WebConfig : WebMvcConfigurer {
-	
+class WebConfiguration : WebMvcConfigurer {
+
 	override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
 		// Serve Vue static files
 		registry.addResourceHandler("/**")
